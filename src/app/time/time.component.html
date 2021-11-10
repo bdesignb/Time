@@ -1,0 +1,246 @@
+<div class="grey-bg container-fluid">
+  <div class="section p-2">
+    <div class="row">
+      <div class="col-12 mt-3 mb-1">
+        <h4 class="text-uppercase">Time Tracking <i class="bi bi-clock mr-2 text-primary"></i></h4>
+      </div>
+    </div>
+
+    <div class="card mb-4 border-0">
+      <div class="card-body">
+        <button class="btn btn-danger rounded-0 float-right text-white" style="width: 150px;" >{{time | date: 'HH:mm:ss'}}</button>
+      </div>
+    </div>
+
+    <table class="table shadow-sm table-borderless">
+      <thead>
+        <tr class="border-bottom text-uppercase">
+          <td><b>Project Name</b></td>
+          <td><b>Billable</b></td>
+          <td><b>Total Time</b></td>
+          <td><b>Today</b></td>
+          <td><b>Time span</b></td>
+          <td><b>Actions</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-bottom" *ngFor="let project of projects; let i = index">
+          <td><i class="bi bi-star-fill mr-2"  [class]="project.isRunning ? 'text-warning' : 'text-secondary'"
+            ></i>
+            {{project.name}}</td>
+          <td><h5 (click)="project.billable = !project.billable" >
+            <i class="bi bi-currency-dollar" [class]="project.billable ? 'text-warning' : 'text-secondary'"></i>
+          </h5></td>
+          <td><b>{{project.totalTime}}
+          </b></td>
+          <td class="text-primary">{{project.time}}</td>
+          <button class="btn btn-danger rounded-0 float-right text-white" *ngIf="project.isRunning" style="width: 150px;" >{{time | date: 'HH:mm:ss'}}</button>
+
+          <td class="text-secondary">{{ startDateTime | date : 'hh:mm a' }} - {{ endDateTime | date : 'shortTime' }}</td>
+          <td> <button class="btn btn-circle mr-3" [class]="project.isRunning == true ? 'btn-danger': 'btn-success'"
+              (click)="project.isRunning == true ? endTimer(project) : startTimer(project)">
+              <i class="bi text-white" [class]="project.isRunning == true ? 'bi-stop-fill': 'bi-caret-right-fill'"></i>
+            </button>
+            <i class="bi bi-pencil" (click)="onEdit(i)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="grey-bg container-fluid">
+  <section id="minimal-statistics" class="p-2">
+    <div class="row">
+      <div class="col-xl-4 col-md-4 col-xs-12 mb-2" *ngFor="let project of projects">
+        <div class="card border-0 shadow-sm">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-8 col-md-6 col-xs-6">
+                <h4>{{project.name}}</h4>
+              </div>
+
+              <div class="col-xl-4 col-md-6 col-xs-6">
+
+                <span class="float-right">
+                  <button class="btn btn-success btn-circle mr-2"
+                    (click)="startTimer(project)">
+                    <i class="bi bi-caret-right-fill text-white"></i>
+                  </button>
+                  <button class="btn btn-danger btn-circle" (click)="endTimer(project)">
+                    <i class="bi bi-stop-fill text-white"></i>
+                  </button>
+
+                </span>
+              </div>
+            </div>
+            <hr>
+
+            <div class="align-self-center">
+              <p class="card-text">
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Total:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;" placeholder="00:00:00"
+                      name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Today:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;" placeholder="00:00:00"
+                      name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+
+              </p>
+            </div>
+
+            <!-- <h4  class="text-info">{{project.totalTime}}</h4>
+
+            <p class="card-text">Project Description</p> -->
+
+
+          </div>
+
+<!--
+          <div class="card-footer text-center">
+            <div class="align-self-center">
+              <p class="card-text">
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Total:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;" placeholder="00:00:00"
+                      name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Today:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;" placeholder="00:00:00"
+                      name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+
+              </p>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<div class="grey-bg container-fluid">
+  <section id="minimal-statistics" class="p-2">
+    <div class="row">
+      <div class="col-12 mt-3 mb-1">
+        <h4 class="text-uppercase">Time Tracking</h4>
+        <p>Log your time on project</p>
+      </div>
+    </div>
+
+
+    <div class="row mb-2">
+      <div class="col-xl-6 col-md-4 mb-2" *ngFor="let project of projects; let i = index">
+        <div class="card overflow-hidden border-0 shadow-sm">
+          <div class="card-content">
+
+            <div class="card-body cleartfix">
+
+              <div class="row">
+                <div class="col-xl-8 col-md-6 col-xs-6">Total cost</div>
+                <div class="col-xl-4 col-md-6 col-xs-6"><span class="float-right">$42</span></div>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4>{{project.name}}
+                    <hr>
+                    <span class="text-info"></span>
+                  </h4>
+                </div>
+                <div>
+                  <input class="mr-3" style="border:none; width: 80px;" value="{{project.totalTime}}">
+                  <button class="btn mr-2" [class]="project.isRunning == true ? 'btn-danger': 'btn-success'"
+                    (click)="project.isRunning == true ? endTimer(project) : startTimer(project)">
+                    <i class="bi text-white" [class]="project.isRunning == true ? 'bi-pause': 'bi-caret-right'"></i>
+                  </button>
+                  <button class="btn btn-info mr-2"><i class="bi  bi-hand-index text-white"></i></button>
+
+                  <button class="btn btn-danger" (click)="addTime(project)" [disabled]="project.isRunning == true">
+                    <i class="bi bi-plus text-white"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="media align-projects-stretch">
+
+                <div class="align-self-center">
+
+                </div>
+                <div class="media-body">
+                  <h4>{{project.name}}
+                    <hr>
+                    <span class="text-info"></span>
+                  </h4>
+
+
+                  <div class="align-self-center">
+                    <p class="card-text">
+                      <span class="text-muted">
+                        <i class="bi bi-clock-fill text-warning mr-2"></i>
+                        <small>
+                          <label>Total:</label>
+                          <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                            name="allTime" [(ngModel)]="project.totalTime">
+                        </small>
+                      </span>
+                      <span class="text-muted">
+                        <i class="bi bi-clock-fill text-warning mr-2"></i>
+                        <small>
+                          <label>Today:</label>
+                          <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                            name="allTime" [(ngModel)]="project.totalTime">
+                        </small>
+                      </span>
+                      <span class="text-muted">
+                        <i class="bi bi-calendar-check-fill text-info m-2"></i>
+                        <small>
+                          {{date | date}}
+                        </small>
+                      </span>
+                    </p>
+                  </div>
+
+                </div>
+
+                <div>
+                  <input class="mr-3" style="border:none; width: 80px;" value="{{project.totalTime}}">
+                  <button class="btn mr-2" [class]="project.isRunning == true ? 'btn-danger': 'btn-success'"
+                    (click)="project.isRunning == true ? endTimer(project) : startTimer(project)">
+                    <i class="bi text-white" [class]="project.isRunning == true ? 'bi-pause': 'bi-caret-right'"></i>
+                  </button>
+                  <button class="btn btn-info mr-2"><i class="bi  bi-hand-index text-white"></i></button>
+
+                  <button class="btn btn-danger" (click)="addTime(project)" [disabled]="project.isRunning == true">
+                    <i class="bi bi-plus text-white"></i>
+                  </button>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,148 @@
+<div class="section p-2">
+
+  <div class="card mb-2 border-0">
+    <div class="card-body pb-0">
+
+      <div class="row">
+        <div class="col-md-6">
+          <input style="width: 200px; border: 0;" id="typeahead-focus" type="text" class="form-control"
+            placeholder="Select project..." [(ngModel)]="model" [ngbTypeahead]="search"
+            (focus)="focus$.next($any($event).target.value)" (click)="click$.next($any($event).target.value)"
+            #instance="ngbTypeahead" />
+        </div>
+
+        <div class="col-md-2">
+          <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control w-25 text-muted border-0" style="text-align:right;"
+                [value]="newTimeLog.startDateTime | date: 'h:mm'" placeholder="00:00"> -
+              <input type="text" class="form-control w-25 text-muted border-0"
+                [value]="newTimeLog.endDateTime | date: 'h:mm'" placeholder="00:00">
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-4">
+          <span class="align-middle p-3 border-left border-left text-muted">{{newTimeLog.duration ? newTimeLog.duration :
+            '00:00:00'}}</span>
+          <a class="text-primary ml-2" style="cursor: pointer;">
+            Add Time
+          </a>
+          <button class="btn btn-large btn-danger text-white ml-2" style="width: 120px;" *ngIf="showTime">
+            {{time | date: 'HH:mm:ss'}}
+          </button>
+          <button class="btn btn-large btn-success border-right text-white ml-2" style="width: 120px;"
+            *ngIf="!showTime">
+            Start Timer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <table class="table shadow-sm table-borderless bg-light">
+    <thead>
+      <tr class="border-bottom text-uppercase">
+        <td><b>Project Name</b></td>
+        <td><b>Billable</b></td>
+        <td><b>Total Time</b></td>
+        <td><b>Today</b></td>
+        <td><b>Time span</b></td>
+        <td><b>Time</b></td>
+        <td><b>Actions</b></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-bottom align-middle" *ngFor="let project of projects; let i = index"
+        (click)="onSelectProject(project.name)">
+        <td><i class="bi bi-star-fill mr-2" [class]="project.timerStarted ? 'text-warning' : 'text-secondary'"></i>
+          <!-- <small class="btn-success p-2 rounded-circle text-white">{{project.name | shortName}}</small>{{project.name}} -->
+          {{project.name}}
+        </td>
+        <td class="align-middle">
+          <h5 (click)="project.billable = !project.billable">
+            <i class="bi bi-currency-dollar" [class]="project.billable ? 'text-warning' : 'text-secondary'"></i>
+          </h5>
+        </td>
+        <td class="text-muted">
+          {{project.totalTime}}
+        </td>
+        <td class="text-primary">{{'00:00:00'}}</td>
+        <td class="text-secondary">{{newTimeLog.startDateTime | date: 'h:mm:ss a'}} - {{newTimeLog.endDateTime | date:
+          'h:mm:ss a'}}
+        </td>
+        <td style="width: 120px;">
+          <span style="width: 120px;" *ngIf="project.timerStarted">{{time | date: 'HH:mm:ss'}}</span>
+          <span *ngIf="!project.timerStarted">00:00:00</span>
+        </td>
+        <td> <button class="btn btn-circle mr-3" [class]="project.timerStarted == true ? 'btn-danger': 'btn-success'"
+            (click)="project.timerStarted == true ? endTimer(project) : startTimer(project)">
+            <i class="bi text-white" [class]="project.timerStarted == true ? 'bi-stop-fill': 'bi-caret-right-fill'"></i>
+          </button>
+          <i class="bi bi-pencil"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div class="grey-bg container-fluid">
+  <section id="minimal-statistics" class="p-2">
+    <div class="row">
+      <div class="col-xl-4 col-md-4 col-xs-12 mb-2" *ngFor="let project of projects">
+        <div class="card border-0 shadow-sm">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-8 col-md-6 col-xs-6">
+                <h4>{{project.name}}</h4>
+              </div>
+
+              <div class="col-xl-4 col-md-6 col-xs-6">
+
+                <span class="float-right">
+                  <button class="btn btn-success btn-circle mr-2" (click)="startTimer(project)">
+                    <i class="bi bi-caret-right-fill text-white"></i>
+                  </button>
+                  <button class="btn btn-danger btn-circle" (click)="endTimer(project)">
+                    <i class="bi bi-stop-fill text-white"></i>
+                  </button>
+
+                </span>
+              </div>
+            </div>
+            <hr>
+
+            <div class="align-self-center">
+              <p class="card-text">
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Total:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;"
+                      placeholder="00:00:00" name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+                <span class="text-muted">
+                  <i class="bi bi-clock-fill text-warning mr-2"></i>
+                  <small>
+                    <label>Today:</label>
+                    <input class="text-muted" style="border:none; background-color: transparent; width: 80px;"
+                      placeholder="00:00:00" name="allTime" [(ngModel)]="project.totalTime">
+                  </small>
+                </span>
+
+              </p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

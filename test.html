@@ -1,0 +1,867 @@
+<div class="grey-bg container-fluid">
+    <section id="minimal-statistics" class="p-2">
+      <div class="row">
+        <div class="col-12 mt-3 mb-1">
+          <h4 class="text-uppercase">Time Tracking</h4>
+          <p>Log your time on project</p>
+        </div>
+      </div>
+
+
+
+      <div class="row mb-2">
+        <div class="col-xl-6 col-md-4 mb-2" *ngFor="let item of items; let i = index">
+          <div class="card overflow-hidden border-0 shadow-sm">
+            <div class="card-content">
+              <div class="card-body cleartfix">
+
+                <div class="row">
+                  <div class="col-8">
+                    <h4>{{item.name}}
+                      <hr>
+                      <span class="text-info"></span>
+                    </h4>
+                  </div>
+                  <div class="col-4">
+                    <span class="mr-3">{{item.loggedTime | date:'HH:mm:ss'}}</span>
+                    <button class="btn mr-2" [class]="item.isRunning == true ? 'btn-danger': 'btn-success'"
+                      (click)="item.isRunning == true ? EndTask(item) : startTask(item)">
+                      <i class="bi text-white" [class]="item.isRunning == true ? 'bi-pause': 'bi-caret-right'"></i>
+                    </button>
+                    <button class="btn btn-info mr-2"><i class="bi  bi-hand-index text-white"></i></button>
+                    <button class="btn btn-danger" (click)="addTime(item)" [disabled]="item.isRunning == true">
+                      <i class="bi bi-plus text-white"></i>
+                    </button>
+                  </div>
+                </div>
+
+
+
+                <div class="d-flex">
+                  <div>
+                    <i class="bi bi-clock-fill text-warning mr-2"></i>
+                    <small>
+                      <label>Total:</label>
+                      <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00" name="allTime"
+                        [(ngModel)]="item.loggedTime">
+                    </small>
+                    <i class="bi bi-clock-fill text-warning mr-2"></i>
+                    <small>
+                      <label>Today:</label>
+                      <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00" name="allTime"
+                        [(ngModel)]="item.loggedTime">
+                    </small>
+                    <i class="bi bi-calendar-check-fill text-info m-2"></i>
+                    <small>
+                      {{date | date}}
+                    </small>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row mb-2">
+        <div class="col-xl-6 col-md-4 mb-2" *ngFor="let item of items; let i = index">
+          <div class="card overflow-hidden border-0 shadow-sm">
+            <div class="card-content">
+              <div class="card-body cleartfix">
+                <div class="media align-items-stretch">
+                  <div class="align-self-center">
+
+                  </div>
+                  <div class="media-body">
+                    <h4>{{item.name}}
+                      <hr>
+                      <span class="text-info"></span>
+                    </h4>
+
+
+                    <div class="align-self-center">
+                      <p class="card-text">
+                        <span class="text-muted">
+                          <i class="bi bi-clock-fill text-warning mr-2"></i>
+                          <small>
+                            <label>Total:</label>
+                            <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                              name="allTime" [(ngModel)]="item.loggedTime">
+                          </small>
+                        </span>
+                        <span class="text-muted">
+                          <i class="bi bi-clock-fill text-warning mr-2"></i>
+                          <small>
+                            <label>Today:</label>
+                            <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                              name="allTime" [(ngModel)]="item.days[1].loggedTimePerDay">
+                          </small>
+                        </span>
+                        <span class="text-muted">
+                          <i class="bi bi-calendar-check-fill text-info m-2"></i>
+                          <small>
+                            {{date | date}}
+                          </small>
+                        </span>
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div>
+                    <span class="mr-3">{{item.loggedTime | date:'HH:mm:ss'}}</span>
+
+
+
+                    <button class="btn mr-2" [class]="item.isRunning == true ? 'btn-danger': 'btn-success'"
+                      (click)="item.isRunning == true ? EndTask(item) : startTask(item)">
+                      <i class="bi text-white" [class]="item.isRunning == true ? 'bi-pause': 'bi-caret-right'"></i>
+                    </button>
+                    <button class="btn btn-info mr-2"><i class="bi  bi-hand-index text-white"></i></button>
+
+                    <!-- <button class="btn btn-danger" (click)="addTime(item)" [disabled]="item.isRunning == true">
+                      <i class="bi bi-plus text-white"></i>
+                    </button> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-xl-12 mb-5">
+          <div class="card m-b-30 no-border shadow-sm">
+            <div class="card-body  overflow-hidden row">
+              <div class="col-6">
+
+                <h4>Emma A. Main</h4>
+                <p class="m-0">Graphics Designer</p>
+                <hr>
+              </div>
+            </div>
+            <!-- <ul class="list-group list-group-flush">
+              <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a
+                  href="#">PaulGoyette@gmail.com</a></li>
+              <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : 000 123-456</li>
+            </ul> -->
+            <div class="card-body">
+              <div class="float-right btn-group btn-group-sm">
+
+                <button class="btn btn-primary mr-2"> <i class="bi bi-play text-white"></i></button>
+                <button class="btn btn-danger mr-2"> <i class="bi bi-play text-white"></i></button>
+
+              </div>
+              <ul class="social-links list-inline mb-0">
+                <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
+                    href="" data-original-title="Facebook">
+                    <i class="bi bi-play text-primary"></i>
+                    test
+                  </a></li>
+
+                <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips"
+                    href="" data-original-title="Facebook">
+                    <i class="bi bi-play text-primary"></i>
+                    test
+                  </a></li>
+
+              </ul>
+              <ul class="list-inline list-unstyled">
+                <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                <li>|</li>
+                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                <li>|</li>
+                <li>
+                  <span class="glyphicon glyphicon-star"></span>
+                  <i class="bi bi-play text-primary"></i>
+                  <i class="bi bi-play text-primary"></i>
+                </li>
+                <li>|</li>
+                <li>
+                  <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                  <span><i class="fa fa-facebook-square"></i></span>
+                  <span><i class="fa fa-twitter-square"></i></span>
+                  <span><i class="fa fa-google-plus-square"></i></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row no-gutters">
+          <div class="card width hr" *ngFor="let item of items">
+            <div class="card-header">
+              <span></span>
+              <span class="float-right font-weight-bold">{{h1}}</span>
+            </div>
+            <div class="card-body pad-125">
+              <div class="row no-gutters">
+                <div class="col-md-12">
+                  {{item.name}}
+                  <div class="float-right">
+                    <button class="btn btn-info mar-l-r-0-5" (click)="startTask(item)">Start</button>
+                    <button class="btn btn-danger mar-l-r-0-5" (click)="EndTask(item)">End</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-content">
+              <div class="card-body cleartfix">
+                <div class="media align-items-stretch">
+                  <div class="align-self-center">
+                    <i class="icon-speech warning font-large-2 mr-2"></i>
+                  </div>
+                  <div class="media-body">
+                    <h4>Total Comments</h4>
+                    <span>Monthly blog comments</span>
+                  </div>
+                  <div class="align-self-center">
+                    <h1>84,695</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-md-12">
+          <div class="card overflow-hidden border-0 shadow-sm">
+            <div class="card-content">
+              <div class="card-body cleartfix">
+                <div class="media align-items-stretch">
+                  <div class="align-self-center">
+                    <i class="icon-pencil primary font-large-2 mr-2"></i>
+                  </div>
+                  <div class="media-body">
+                    <h4>Project <span class="text-info">Trix</span></h4>
+                    <span>Monthly blog posts</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-content">
+              <div class="card-body cleartfix">
+                <div class="media align-items-stretch">
+                  <div class="align-self-center">
+                    <i class="icon-speech warning font-large-2 mr-2"></i>
+                  </div>
+                  <div class="media-body">
+                    <h4>Total Comments</h4>
+                    <span>Monthly blog comments</span>
+                  </div>
+                  <div class="align-self-center">
+                    <h1>84,695</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-xl-12 mb-5">
+        <div class="card m-b-30 no-border shadow-sm">
+          <div class="card-body row">
+            <div class="col-6">
+
+              <h4>Emma A. Main</h4>
+              <p class="m-0">Graphics Designer</p>
+              <hr>
+            </div>
+          </div>
+          <!-- <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a
+                href="#">PaulGoyette@gmail.com</a></li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : 000 123-456</li>
+          </ul> -->
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+
+              <button class="btn btn-primary mr-2"> <i class="bi bi-play text-white"></i></button>
+              <button class="btn btn-danger mr-2"> <i class="bi bi-play text-white"></i></button>
+
+            </div>
+            <ul class="social-links list-inline mb-0">
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Facebook">
+                  <i class="bi bi-play text-primary"></i>
+                  test
+                </a></li>
+
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Facebook">
+                  <i class="bi bi-play text-primary"></i>
+                  test
+                </a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-xl-12">
+        <div class="card m-b-30">
+          <div class="card-body row">
+            <div class="col-6">
+              <a href=""><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""
+                  class="img-fluid rounded-circle w-60"></a>
+            </div>
+            <div class="col-6 card-title align-self-center mb-0">
+              <h5>Paul L. Goyette</h5>
+              <p class="m-0">Graphics Designer</p>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a
+                href="#">PaulGoyette@gmail.com</a></li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : 000 123-456</li>
+          </ul>
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+              <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+            <ul class="social-links list-inline mb-0">
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="card m-b-30">
+          <div class="card-body row">
+            <div class="col-6">
+              <a href=""><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""
+                  class="img-fluid rounded-circle w-60"></a>
+            </div>
+            <div class="col-6 card-title align-self-center mb-0">
+              <h5>Jonathan Smith</h5>
+              <p class="m-0">Graphics Designer</p>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a
+                href="#">PaulGoyette@gmail.com</a></li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : 000 123-456</li>
+          </ul>
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+              <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+            <ul class="social-links list-inline mb-0">
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <div class="card m-b-30">
+          <div class="card-body row">
+            <div class="col-6">
+              <a href=""><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""
+                  class="img-fluid rounded-circle w-60"></a>
+            </div>
+            <div class="col-6 card-title align-self-center mb-0">
+              <h5>Lily J. Ford</h5>
+              <p class="m-0">Graphics Designer</p>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a
+                href="#">PaulGoyette@gmail.com</a></li>
+            <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : 000 123-456</li>
+          </ul>
+          <div class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+              <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+            <ul class="social-links list-inline mb-0">
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Facebook"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href=""
+                  data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br><br>
+
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-6">
+                  Project Name
+                </div>
+                <div class="col-6">
+                  <div class="form-group row">
+                    <label for="staticEmail" class="col-form-label">Total Time:</label>
+                    <div class="col-sm-4">
+                      <input type="text" readonly class="form-control-plaintext" name="allTime" [(ngModel)]="allTime">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Lorem imsum title</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <p>{{display }}</p>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-primary"> <i class="bi bi-play"></i></button>
+
+                  <span>
+                    <button href="#" class="btn btn-danger" [disabled]="startedTimer">Add Time</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="grey-bg container-fluid">
+      <section id="minimal-statistics">
+        <div class="row">
+          <div class="col-12 mt-3 mb-1">
+            <h4 class="text-uppercase">Minimal Statistics Cards</h4>
+            <p>Statistics on minimal cards.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card border-0 shadow-sm">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="align-self-center">
+                      <i class="icon-pencil primary font-large-2 float-left"></i>
+                    </div>
+                    <div class="media-body text-right">
+                      <h3>278</h3>
+                      <span>New Posts</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="align-self-center">
+                      <i class="icon-speech warning font-large-2 float-left"></i>
+                    </div>
+                    <div class="media-body text-right">
+                      <h3>156</h3>
+                      <span>New Comments</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="align-self-center">
+                      <i class="icon-graph success font-large-2 float-left"></i>
+                    </div>
+                    <div class="media-body text-right">
+                      <h3>64.89 %</h3>
+                      <span>Bounce Rate</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="align-self-center">
+                      <i class="icon-pointer danger font-large-2 float-left"></i>
+                    </div>
+                    <div class="media-body text-right">
+                      <h3>423</h3>
+                      <span>Total Visits</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="danger">278</h3>
+                      <span>New Projects</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-rocket danger font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="success">156</h3>
+                      <span>New Clients</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-user success font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="warning">64.89 %</h3>
+                      <span>Conversion Rate</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-pie-chart warning font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="primary">423</h3>
+                      <span>Support Tickets</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-support primary font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="primary">278</h3>
+                      <span>New Posts</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-book-open primary font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="warning">156</h3>
+                      <span>New Comments</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-bubbles warning font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 35%" aria-valuenow="35"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="success">64.89 %</h3>
+                      <span>Bounce Rate</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-cup success font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="danger">423</h3>
+                      <span>Total Visits</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-direction danger font-large-2 float-right"></i>
+                    </div>
+                  </div>
+                  <div class="progress mt-1 mb-0" style="height: 7px;">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stats-subtitle">
+        <div class="row">
+          <div class="col-12 mt-3 mb-1">
+            <h4 class="text-uppercase">Statistics With Subtitle</h4>
+            <p>Statistics on minimal cards with Title &amp; Sub Title.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 col-md-12">
+            <div class="card overflow-hidden">
+              <div class="card-content">
+                <div class="card-body cleartfix">
+                  <div class="media align-items-stretch">
+                    <div class="align-self-center">
+                      <i class="icon-pencil primary font-large-2 mr-2"></i>
+                    </div>
+                    <div class="media-body">
+                      <h4>Total Posts</h4>
+                      <span>Monthly blog posts</span>
+                    </div>
+                    <div class="align-self-center">
+                      <h1>18,000</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-md-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body cleartfix">
+                  <div class="media align-items-stretch">
+                    <div class="align-self-center">
+                      <i class="icon-speech warning font-large-2 mr-2"></i>
+                    </div>
+                    <div class="media-body">
+                      <h4>Total Comments</h4>
+                      <span>Monthly blog comments</span>
+                    </div>
+                    <div class="align-self-center">
+                      <h1>84,695</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 col-md-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body cleartfix">
+                  <div class="media align-items-stretch">
+                    <div class="align-self-center">
+                      <h1 class="mr-2">$76,456.00</h1>
+                    </div>
+                    <div class="media-body">
+                      <h4>Total Sales</h4>
+                      <span>Monthly Sales Amount</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-heart danger font-large-2"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-md-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body cleartfix">
+                  <div class="media align-items-stretch">
+                    <div class="align-self-center">
+                      <h1 class="mr-2">$36,000.00</h1>
+                    </div>
+                    <div class="media-body">
+                      <h4>Total Cost</h4>
+                      <span>Monthly Cost</span>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="icon-wallet success font-large-2"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <!-- <div class="row mb-2">
+        <div class="col-xl-6 col-md-4 mb-2" *ngFor="let item of items; let i = index">
+          <div class="card overflow-hidden border-0 shadow-sm">
+
+        <div class="card-body">
+          <h4 class="card-title">{{item.name}}</h4>
+          <hr>
+          <p class="card-text">Some quick example text to build.</p>
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <i class="bi bi-clock-fill text-warning mr-2"></i>
+              <small>
+                <label>Total:</label>
+                <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                  name="allTime" [(ngModel)]="item.loggedTime">
+              </small>
+            </li>
+            <li class="list-inline-item">
+              <i class="bi bi-clock-fill text-warning mr-2"></i>
+              <small>
+                <label>Today:</label>
+                <input class="text-muted" style="border:none; width: 80px;" placeholder="00:00:00"
+                  name="allTime" [(ngModel)]="item.days[1].loggedTimePerDay">
+              </small>
+            </li>
+            <li class="list-inline-item">
+              <i class="bi bi-calendar-check-fill text-info m-2"></i>
+              <small>
+                {{date | date}}
+              </small>
+            </li>
+          </ul>
+
+
+
+          <button class="btn btn-danger mr-2" (click)="addTime(item)" [disabled]="item.isRunning == true">
+            <i class="bi bi-plus text-white"></i>
+          </button>
+        <button class="btn btn-info mr-2"><i class="bi  bi-hand-index text-white"></i></button>
+        <button class="btn mr-2" [class]="item.isRunning == true ? 'btn-danger': 'btn-success'"
+          (click)="item.isRunning == true ? EndTask(item) : startTask(item)">
+          <i class="bi text-white" [class]="item.isRunning == true ? 'bi-pause': 'bi-caret-right'"></i>
+        </button>
+        <span class="mr-3">{{item.loggedTime | date:'HH:mm:ss'}}</span>
+        </div>
+      </div>
+      </div>
+      </div> -->

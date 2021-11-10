@@ -1,0 +1,27 @@
+
+<div class="section p-2">
+
+
+  <table class="table shadow-sm table-borderless">
+    <thead>
+      <tr class="border-bottom text-uppercase">
+        <td colspan="4"><b>Project Trix</b></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-bottom align-middle" *ngFor="let project of projects; let i = index">
+        <td class="text-primary">{{project.name}}</td>
+
+        <td class="align-middle">
+          {{project.totalTime }}
+        </td>
+        <td class="text-muted">
+          {{project.totalTime}}
+        </td>
+        <td class="text-primary"></td>
+        <td>
+          <i class="bi bi-pencil"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
